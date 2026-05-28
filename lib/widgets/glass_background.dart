@@ -1,0 +1,353 @@
+import 'package:flutter/material.dart';
+import 'dart:ui';
+import 'package:google_fonts/google_fonts.dart';
+
+// 🎨 BRAND DESIGN SYSTEM
+class BrandColors {
+  static const Color seljukTurquoise = Color(0xFF00838F); 
+  static const Color turquoiseLight = Color(0xFF00B4DB); 
+  static const Color accentSand = Color(0xFFE9C46A); 
+  static const Color textDark = Color(0xFF1B3A4B); // Slightly deeper, more professional
+  static const Color background = Color(0xFFF8FAFB); // Cleaner, airy background
+}
+
+class BrandTypography {
+  static TextStyle h1 = GoogleFonts.outfit(fontSize: 26, fontWeight: FontWeight.w800, color: BrandColors.textDark, letterSpacing: -1.0, height: 1.1);
+  static TextStyle h2 = GoogleFonts.outfit(fontSize: 20, fontWeight: FontWeight.w700, color: BrandColors.textDark, letterSpacing: -0.6, height: 1.2);
+  static TextStyle h3 = GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.w600, color: BrandColors.textDark, letterSpacing: -0.3, height: 1.3);
+  static TextStyle bodyBold = GoogleFonts.outfit(fontSize: 14, fontWeight: FontWeight.w600, color: BrandColors.textDark, letterSpacing: -0.1);
+  static TextStyle bodyMedium = GoogleFonts.outfit(fontSize: 14, fontWeight: FontWeight.w500, color: BrandColors.textDark, letterSpacing: -0.1);
+  static TextStyle bodySmall = GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade600, letterSpacing: 0.1, height: 1.4);
+  static TextStyle caption = GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w700, color: BrandColors.seljukTurquoise, letterSpacing: 0.8);
+}
+
+class GlassBackground extends StatelessWidget {
+  final Widget child;
+
+  const GlassBackground({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // 1. ZEMİN GRADİENTİ — belirgin premium çapraz geçiş
+        Positioned.fill(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFBFE4E8), // Açık turkuaz tonu — seljukTurquoise ~%25
+                  Color(0xFFDDEEED), // Orta geçiş — soğuk mint buz
+                  Color(0xFFF2E5C8), // Sıcak kum tonu — accentSand ~%30
+                ],
+                stops: [0.0, 0.5, 1.0],
+              ),
+            ),
+          ),
+        ),
+        
+        // 2. SOL ÜST TURKUAZ HÜZME
+        Positioned(
+          top: -120,
+          left: -80,
+          child: Container(
+            width: 350,
+            height: 350,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  BrandColors.seljukTurquoise.withOpacity(0.25),
+                  BrandColors.seljukTurquoise.withOpacity(0.0),
+                ],
+              ),
+            ),
+          ),
+        ),
+        
+        // 3. SAĞ ALT KUM SARISI HÜZME
+        Positioned(
+          bottom: -100,
+          right: -80,
+          child: Container(
+            width: 400,
+            height: 400,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  BrandColors.accentSand.withOpacity(0.20),
+                  BrandColors.accentSand.withOpacity(0.0),
+                ],
+              ),
+            ),
+          ),
+        ),
+        
+        // 4. CAM EFEKTİ (Glassmorphism Blur filter)
+        Positioned.fill(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+            child: Container(
+              color: Colors.white.withOpacity(0.22), // Azaltıldı: gradient görünsün
+            ),
+          ),
+        ),
+
+        // 5. ÜZERİNE GELECEK EKRAN İÇERİĞİ
+        Positioned.fill(
+          child: child,
+        ),
+      ],
+    );
+  }
+}
+
+// 🧊 YARDIMCI WIDGET: PREMIUM CAM KART (FROSTED GLASS CARD)
+class GlassCard extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
+  final double width;
+  final double height;
+  final VoidCallback? onTap;
+
+  final Color? color;
+
+  const GlassCard({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(20),
+    this.margin = const EdgeInsets.only(bottom: 16),
+    this.width = double.infinity,
+    this.height = double.nan,
+    this.onTap,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cardContent = Container(
+      width: width.isNaN ? null : width,
+      height: height.isNaN ? null : height,
+      margin: margin,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(28),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: Container(
+            decoration: BoxDecoration(
+              color: color ?? Colors.white.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(28),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.95), 
+                width: 0.8
+              ),
+            ),
+            child: Padding(
+              padding: padding,
+              child: child,
+            ),
+          ),
+        ),
+      ),
+    );
+    
+    return PressableScale(
+      onTap: onTap,
+      child: cardContent,
+    );
+  }
+}
+
+// 🧊 YARDIMCI WIDGET: PREMIUM BASILMA HİSSİ (PRESS SCALE EFFECT)
+class PressableScale extends StatefulWidget {
+  final Widget child;
+  final VoidCallback? onTap;
+
+  const PressableScale({super.key, required this.child, this.onTap});
+
+  @override
+  State<PressableScale> createState() => _PressableScaleState();
+}
+
+class _PressableScaleState extends State<PressableScale> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.onTap == null) return widget.child;
+
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) => setState(() => _isPressed = false),
+      onTapCancel: () => setState(() => _isPressed = false),
+      onTap: widget.onTap,
+      child: AnimatedScale(
+        scale: _isPressed ? 0.96 : 1.0,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeOutCubic,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+// 🧊 YARDIMCI WIDGET: PREMIUM CAM BUTON (GLASS BUTTON)
+class GlassButton extends StatelessWidget {
+  final String label;
+  final VoidCallback onPressed;
+  final Color? color;
+  final IconData? icon;
+  final double? width;
+  final double height;
+  final bool isLoading;
+  final Color? textColor;
+
+  const GlassButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.color,
+    this.icon,
+    this.width = double.infinity,
+    this.height = 54,
+    this.isLoading = false,
+    this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // 💎 Navigasyon barının görsel dilini (ICE BLUE GLASS) taklit ediyoruz
+    final baseColor = color ?? BrandColors.seljukTurquoise;
+    
+    return PressableScale(
+      onTap: isLoading ? null : onPressed,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: baseColor.withOpacity(0.3),
+            blurRadius: 25,
+            offset: const Offset(0, 8),
+          )
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Material(
+            color: baseColor.withOpacity(0.35),
+            child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white.withOpacity(0.2),
+                      Colors.white.withOpacity(0.05),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.5),
+                    width: 0.8,
+                  ),
+                ),
+                child: Center(
+                  child: isLoading
+                    ? const SizedBox(
+                        width: 20, 
+                        height: 20, 
+                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (icon != null) ...[
+                            Icon(icon, color: textColor ?? Colors.white, size: 20),
+                            const SizedBox(width: 10),
+                          ],
+                          Text(
+                            label,
+                            style: TextStyle(
+                              color: textColor ?? Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+// 🧊 YARDIMCI WIDGET: PREMIUM GİRİŞ ANİMASYONU (FADE & SLIDE)
+class FadeSlideUp extends StatefulWidget {
+  final Widget child;
+  final Duration delay;
+  final Duration duration;
+
+  const FadeSlideUp({
+    super.key, 
+    required this.child, 
+    this.delay = Duration.zero,
+    this.duration = const Duration(milliseconds: 800),
+  });
+
+  @override
+  State<FadeSlideUp> createState() => _FadeSlideUpState();
+}
+
+class _FadeSlideUpState extends State<FadeSlideUp> with SingleTickerProviderStateMixin {
+  bool _visible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.delay == Duration.zero) {
+      _visible = true;
+    } else {
+      Future.delayed(widget.delay, () {
+        if (mounted) setState(() => _visible = true);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: _visible ? 1.0 : 0.0,
+      duration: widget.duration,
+      curve: Curves.easeOutCubic,
+      child: AnimatedContainer(
+        duration: widget.duration,
+        curve: Curves.easeOutCirc,
+        transform: Matrix4.translationValues(0, _visible ? 0 : 50, 0),
+        child: widget.child,
+      ),
+    );
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145724452947",
+    "project_id": "akilliseyahatasistani-2325",
+    "storage_bucket": "akilliseyahatasistani-2325.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145724452947:android:9482f327a181d7150e16a6",
+        "android_client_info": {
+          "package_name": "com.example.akilli_seyahat_asistani"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4etSh2_oxjaUsdJyHEHZNiVVI_iBNFTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
