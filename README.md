@@ -10,6 +10,10 @@ Konya Teknik Üniversitesi Bilgisayar Mühendisliği bölümü 3. sınıf dönem
   <img src="assets/screenshots/screenshot_community.png" width="30%" />
 </p>
 
+<p align="center">
+  <sub>⚠️ Görseller temsilidir, uygulamanın gerçek ekran görüntüleri değildir.</sub>
+</p>
+
 ---
 
 ## Özellikler
