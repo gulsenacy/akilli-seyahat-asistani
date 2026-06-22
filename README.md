@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  🗺️ Konnext — Konya'yı Keşfet
+  🗺️ Akıllı Seyahat Asistanı
   <br>
 </h1>
 
@@ -183,7 +183,7 @@ Firestore/
 
 ## 👩‍💻 Geliştirici
 
-**Gülsena Cy**
+**Gülsena Özongun**
 - GitHub: [@gulsenacy](https://github.com/gulsenacy)
 
 ---
@@ -195,5 +195,5 @@ Bu proje akademik amaçlı geliştirilmiştir. Ticari kullanım için izin gerek
 ---
 
 <p align="center">
-  <i>Konya'yı keşfetmeye hazır mısın? 🕌</i>
+  <i>Akıllı Seyahat Asistanı ile Konya'yı keşfetmeye hazır mısın? 🕌</i>
 </p>
