@@ -33,6 +33,22 @@ Proje, Selçuk Üniversitesi Bilgisayar Mühendisliği bölümü kapsamında gel
 
 ---
 
+## 📱 Ekran Görüntüleri
+
+<p align="center">
+  <img src="assets/screenshots/screenshot_home.png" width="30%" alt="Ana Sayfa" />
+  &nbsp;&nbsp;
+  <img src="assets/screenshots/screenshot_map.png" width="30%" alt="Harita & Rota" />
+  &nbsp;&nbsp;
+  <img src="assets/screenshots/screenshot_community.png" width="30%" alt="Topluluk" />
+</p>
+
+<p align="center">
+  <em>Ana Sayfa &nbsp;&nbsp;|&nbsp;&nbsp; Harita & Rota Optimizasyonu &nbsp;&nbsp;|&nbsp;&nbsp; Topluluk</em>
+</p>
+
+---
+
 ## ✨ Özellikler
 
 | Özellik | Açıklama |

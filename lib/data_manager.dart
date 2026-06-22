@@ -26,7 +26,7 @@ class DataManager {
           String cleanName = name.trim();
           if (cleanName.isEmpty) continue;
 
-          final existing = await _db.collection('places').where('name', '==', cleanName).get();
+          final existing = await _db.collection('places').where('name', isEqualTo: cleanName).get();
           if (existing.docs.isNotEmpty) {
             print("⏩ $cleanName zaten var.");
             continue;
@@ -80,7 +80,7 @@ class DataManager {
       {"title": "Tropikal Kelebek Bahçesi", "subtitle": "Büyülü Kelebek Dünyasını Keşfet"},
     ];
     for (var b in banners) {
-      final existing = await _db.collection('banners').where('title', '==', b['title']).get();
+      final existing = await _db.collection('banners').where('title', isEqualTo: b['title']).get();
       if (existing.docs.isEmpty) {
         await _db.collection('banners').add(b);
         print("🚩 Banner: ${b['title']} eklendi.");
